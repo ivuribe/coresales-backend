@@ -2,24 +2,23 @@ package com.coresales.service.customer.service;
 
 import com.coresales.service.customer.model.Customer;
 
-import com.coresales.service.customer.repository.ICustomerRepository;
+import com.coresales.service.customer.repository.IICustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
 public class CustomerServiceImpl implements ICustomerService{
 
-    private final ICustomerRepository clienteRepository;
+    private final IICustomerRepository clienteRepository;
 
     //==========================================
     // CONSTRUCTOR
     //==========================================
-    public CustomerServiceImpl(ICustomerRepository clienteRepository) {
+    public CustomerServiceImpl(IICustomerRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 
@@ -29,13 +28,13 @@ public class CustomerServiceImpl implements ICustomerService{
     @Override
     @Transactional(readOnly = true)
     public List<Customer> listar(){
-        return new ArrayList<>(clienteRepository.findAll());
+        return new ArrayList<>(clienteRepository.listarClientes());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Customer obtenerPorId(Long id){
-        return clienteRepository.findById(id).orElseThrow(null);
+        return clienteRepository.buscarCliente(id);
     }
 
     @Override
@@ -68,6 +67,7 @@ public class CustomerServiceImpl implements ICustomerService{
                     "El número de documento ya pertenece a otro cliente"
             );
         }
+        cliente.setFechaRegistro(clienteBusqueda.getFechaRegistro());
         Customer actualizado = clienteRepository.save(cliente);
         return actualizado;
     }

@@ -26,9 +26,9 @@ public class CustomerController {
     //==========================================
     // GET /api/clientes
     //==========================================
-    @GetMapping
-    public ResponseEntity<List<Customer>> listar() {
-        return ResponseEntity.ok(clienteService.listar());
+    @GetMapping("/listar")
+    public /*ResponseEntity<*/List<Customer>/*>*/ listar() {
+        return /*ResponseEntity.ok(*/clienteService.listar()/*)*/;
     }
 
     //==========================================

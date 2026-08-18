@@ -2,21 +2,28 @@ package com.coresales.service.customer.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "clientes")
-//@Data //añade automáticamente los getters, setter, constructores, ...
+@Table(name = "Cliente")
+//@Data //añade automáticamente los getters, setters, constructores, ...
+@Getter
+@Setter
+@NoArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ClienteId")
     private Long id;
 
-    @Column(name = "tipo_documento", nullable = false, length = 20)
-    private String tipoDocumento;
+    @Column(name = "TipoDocumentoId", nullable = false, length = 20)
+    private Integer tipoDocumento;
 
-    @Column(name = "numero_documento", nullable = false, unique = true, length = 20)
+    @Column(name = "NumeroDocumento", nullable = false, unique = true, length = 20)
     private String numeroDocumento;
 
     @Column(nullable = false, length = 100)
@@ -40,17 +47,17 @@ public class Customer {
     @Column(nullable = false)
     private Boolean activo = true;
 
-    @Column(name = "fecha_registro", nullable = false)
+    @Column(name = "FechaRegistro", nullable = false)
     private LocalDateTime fechaRegistro;
 
-    public Customer() {
-    }
+    /*public Customer() {
+    }*/
 
     @PrePersist
     public void prePersist() {
         fechaRegistro = LocalDateTime.now();
     }
-
+    /*
     public Long getId() {
         return id;
     }
@@ -59,11 +66,11 @@ public class Customer {
         this.id = id;
     }
 
-    public String getTipoDocumento() {
+    public Integer getTipoDocumento() {
         return tipoDocumento;
     }
 
-    public void setTipoDocumento(String tipoDocumento) {
+    public void setTipoDocumento(Integer tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 
@@ -138,4 +145,5 @@ public class Customer {
     public void setFechaRegistro(LocalDateTime fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+     */
 }
