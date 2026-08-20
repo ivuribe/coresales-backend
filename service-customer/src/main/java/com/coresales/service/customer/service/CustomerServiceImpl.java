@@ -2,7 +2,7 @@ package com.coresales.service.customer.service;
 
 import com.coresales.service.customer.model.Customer;
 
-import com.coresales.service.customer.repository.IICustomerRepository;
+import com.coresales.service.customer.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,12 +13,12 @@ import java.util.List;
 @Transactional
 public class CustomerServiceImpl implements ICustomerService{
 
-    private final IICustomerRepository clienteRepository;
+    private final CustomerRepository clienteRepository;
 
     //==========================================
     // CONSTRUCTOR
     //==========================================
-    public CustomerServiceImpl(IICustomerRepository clienteRepository) {
+    public CustomerServiceImpl(CustomerRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 
@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements ICustomerService{
     @Override
     @Transactional(readOnly = true)
     public Customer obtenerPorId(Long id){
-        return clienteRepository.buscarCliente(id);
+        return clienteRepository.findByCodigo(id);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements ICustomerService{
             cliente.setActivo(true);
         }
 
-        Customer guardado = clienteRepository.save(cliente);
+        Customer guardado = clienteRepository.crearCliente(cliente);
 
         return guardado;
     }
@@ -68,13 +68,13 @@ public class CustomerServiceImpl implements ICustomerService{
             );
         }
         cliente.setFechaRegistro(clienteBusqueda.getFechaRegistro());
-        Customer actualizado = clienteRepository.save(cliente);
+        Customer actualizado = clienteRepository.actualizarCliente(id,cliente);
         return actualizado;
     }
 
     @Override
     public void eliminar(Long id){
-        clienteRepository.deleteById(id);
+        clienteRepository.eliminarCliente(id);
 
         //Customer cliente = obtenerPorId(id);
         //clienteRepository.delete(cliente);
