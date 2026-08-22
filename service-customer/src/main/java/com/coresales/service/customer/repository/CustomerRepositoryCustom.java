@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CustomerRepositoryCustom {
     List<Customer> listarClientes();
-    Customer findByCodigo(Long codigo);
+    Customer buscarPorCodigo(Long codigo);
     Customer crearCliente(Customer cliente);
     Customer actualizarCliente(Long id, Customer cliente);
     void eliminarCliente(Long id);

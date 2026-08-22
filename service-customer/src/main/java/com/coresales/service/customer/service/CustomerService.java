@@ -3,7 +3,7 @@ package com.coresales.service.customer.service;
 import com.coresales.service.customer.model.Customer;
 import java.util.List;
 
-public interface ICustomerService {
+public interface CustomerService {
     List<Customer> listar();
     Customer obtenerPorId(Long id);
     Customer crear(Customer cliente);

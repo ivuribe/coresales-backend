@@ -1,8 +1,7 @@
 package com.coresales.service.customer.controller;
 
 import com.coresales.service.customer.model.Customer;
-import com.coresales.service.customer.service.CustomerServiceImpl;
-import com.coresales.service.customer.service.ICustomerService;
+import com.coresales.service.customer.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +13,12 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173")
 public class CustomerController {
 
-    private final ICustomerService clienteService;
+    private final CustomerService clienteService;
 
     //==========================================
     // CONSTRUCTOR
     //==========================================
-    public CustomerController(ICustomerService clienteService) {
+    public CustomerController(CustomerService clienteService) {
         this.clienteService = clienteService;
     }
 

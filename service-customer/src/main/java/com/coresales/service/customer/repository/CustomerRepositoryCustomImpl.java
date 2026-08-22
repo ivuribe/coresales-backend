@@ -20,7 +20,7 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
         return query.getResultList();
     }
 
-    public Customer findByCodigo(Long codigo){
+    public Customer buscarPorCodigo(Long codigo){
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Cliente_ObtenerPorId",Customer.class);
         query.registerStoredProcedureParameter("ClienteId", Long.class, ParameterMode.IN);
         query.setParameter("ClienteId", codigo);
@@ -100,5 +100,4 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
         //List<Customer> listClientes = query.getResultList();
         //return listClientes.isEmpty() ? null : listClientes.get(0);
     }
-
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CustomerServiceImpl implements ICustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository clienteRepository;
 
@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements ICustomerService{
     @Override
     @Transactional(readOnly = true)
     public Customer obtenerPorId(Long id){
-        return clienteRepository.findByCodigo(id);
+        return clienteRepository.findById(id).orElseThrow(null);
     }
 
     @Override
