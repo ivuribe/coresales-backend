@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categoriaproductos")
+@RequestMapping("/api/productcategory")
 @CrossOrigin("http://localhost:5173")
 public class ProductCategoryController {
     private final ProductCategoryService categoriaProductoService;
