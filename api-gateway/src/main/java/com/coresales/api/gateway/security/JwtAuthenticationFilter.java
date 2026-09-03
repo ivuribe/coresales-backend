@@ -50,7 +50,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     }
 
     private boolean isPublicEndpoint(String path){
-        return path.startsWith("api/auth");
+        return path.startsWith("/api/auth");
     }
 
     //Respuesta Error 401
