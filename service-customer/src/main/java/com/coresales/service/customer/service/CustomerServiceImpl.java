@@ -68,7 +68,10 @@ public class CustomerServiceImpl implements CustomerService {
             );
         }
         cliente.setFechaRegistro(clienteBusqueda.getFechaRegistro());
-        Customer actualizado = clienteRepository.actualizarCliente(id,cliente);
+        System.out.println("EL NUEVO ESTADO DEL OBJETO A ACTUALIZAR ES:");
+        System.out.println(cliente.getActivo());
+
+        Customer actualizado = clienteRepository.actualizarCliente(id,cliente); //save(cliente); //
         return actualizado;
     }
 

@@ -54,6 +54,8 @@ public class CustomerController {
     //==========================================
     @PutMapping("/{id}")
     public ResponseEntity<Customer> actualizar(@PathVariable Long id,@RequestBody Customer request) {
+        System.out.println("Este es el estado nuevo para actualizar el cliente:");
+        System.out.println(request.getActivo());
         Customer response = clienteService.actualizar(id, request);
         return ResponseEntity.ok(response);
     }
