@@ -39,12 +39,13 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
         //Extraer token
         String token = authorization.substring(7);
-
+        System.out.println("El token es: " + token);
         //Validar token
         if (!jwtTokenUtil.validateToken(token)){
+            System.out.println("HUBO ERROR en validateToken");
             return unauthorized(exchange);
         }
-
+        System.out.println("Continua con la cadena de filtro");
         //Continúo con la cadena de filtro
         return chain.filter(exchange);
     }

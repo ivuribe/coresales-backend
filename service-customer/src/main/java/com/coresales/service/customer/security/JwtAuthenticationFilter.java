@@ -25,11 +25,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader("Authorization");
-
+        System.out.println("Inicio del doFilterInternal");
+        System.out.println("Authorization: " + authorization);
         //========================================
         // NO EXISTE TOKEN
         //========================================
         if (authorization == null || !authorization.startsWith("Bearer ")) {
+            System.out.println("NO EXISTE TOKEN");
             filterChain.doFilter(request, response);
             return;
         }
@@ -43,6 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // VALIDAR TOKEN
         //========================================
         if (!jwtService.isTokenValid(token)) {
+            System.out.println("TOKEN NO ES VALIDO");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
@@ -65,6 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         //========================================
         // CONTINUAR
         //========================================
+        System.out.println("Continua con la cadena de filtro");
         filterChain.doFilter(request, response);
     }
 }
