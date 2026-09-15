@@ -27,7 +27,16 @@ public class Product {
     @Column(name="CategoriaProductoId", nullable = false)
     Integer categoriaProductoId;
 
+    @Column(name="marcaId")
     Integer marcaId;
+
+    @ManyToOne(fetch = FetchType.EAGER) //LAZY = carga ociosa y EAGER = carga anciosa
+    @JoinColumn(name = "CategoriaProductoId", nullable = false, insertable = false, updatable = false)
+    private ProductCategory categoriaProducto;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MarcaId", insertable = false, updatable = false)
+    private Brand marca;
 
     @Column(name="PrecioCompra", precision = 12, scale = 2)
     BigDecimal precioCompra;
@@ -35,7 +44,17 @@ public class Product {
     @Column(name="PrecioVenta", precision = 12, scale = 2)
     BigDecimal precioVenta;
 
+    @Column(name="StockMinimo")
     Integer stockMinimo;
+
+    @Column(name="Activo")
     Boolean activo;
+
+    @Column(name="FechaRegistro")
     LocalDateTime fechaRegistro;
+
+    @PrePersist
+    public void prePersist() {
+        fechaRegistro = LocalDateTime.now();
+    }
 }
