@@ -27,7 +27,7 @@ public class Product {
     @Column(name="CategoriaProductoId", nullable = false)
     Integer categoriaProductoId;
 
-    @Column(name="marcaId")
+    @Column(name="MarcaId")
     Integer marcaId;
 
     @ManyToOne(fetch = FetchType.EAGER) //LAZY = carga ociosa y EAGER = carga anciosa
@@ -46,6 +46,9 @@ public class Product {
 
     @Column(name="StockMinimo")
     Integer stockMinimo;
+
+    @Transient //Le estoy al JPA que esta propiedad no se debe mapear contra una columna de la tabla Producto
+    Integer stockActual;
 
     @Column(name="Activo")
     Boolean activo;

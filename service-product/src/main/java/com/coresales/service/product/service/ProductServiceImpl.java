@@ -27,20 +27,22 @@ public class ProductServiceImpl implements ProductService{
     @Override
     @Transactional(readOnly = true)
     public List<Product> listar(){
-        return new ArrayList<>(productoRepository.findAll());
+        System.out.println("PASO 2: SERVICE (LOGICA DE NEGOCIO)");
+        //return new ArrayList<>(productoRepository.findAll()); //Con JPA
+        return new ArrayList<>(productoRepository.listarProductos()); //Con repositorio propio para llamar SP's
     }
 
     @Override
     @Transactional(readOnly = true)
     public Product obtenerPorId(Long id) {
-
-        return productoRepository.findById(id).orElse(null);
-
+        //return productoRepository.findById(id).orElse(null);
+        return productoRepository.obtenerProductoPorId(id);
     }
 
     @Override
     public Product crear(Product producto){
-        Product guardado = productoRepository.save(producto);
+        //Product guardado = productoRepository.save(producto);
+        Product guardado = productoRepository.insertarProducto(producto);
         return guardado;
     }
 
@@ -51,14 +53,16 @@ public class ProductServiceImpl implements ProductService{
         if (productoBusqueda == null) return null;
 
         producto.setFechaRegistro(productoBusqueda.getFechaRegistro());
-        Product actualizado = productoRepository.save(producto);
+        //Product actualizado = productoRepository.save(producto);
+        Product actualizado = productoRepository.actualizarProducto(producto);
 
         return actualizado;
     }
 
     @Override
     public void eliminar(Long id){
-        productoRepository.deleteById(id);
+        productoRepository.eliminarProducto(id);
+        //productoRepository.deleteById(id); //Con JPA
         //Product producto = obtenerPorId(id);
         //productoRepository.delete(producto);
     }

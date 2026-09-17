@@ -26,6 +26,7 @@ public class ProductController {
     //==========================================
     @GetMapping()
     public ResponseEntity<List<Product>> listar() {
+        System.out.println("PASO 1: CONTROLLER");
         return ResponseEntity.ok(productoService.listar());
     }
 
