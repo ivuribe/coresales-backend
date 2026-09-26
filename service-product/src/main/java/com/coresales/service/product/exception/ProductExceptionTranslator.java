@@ -20,6 +20,9 @@ public class ProductExceptionTranslator {
     public RuntimeException translate(Throwable exception,String mensajeGenerico) {
         Integer codigoError = obtenerCodigoError(exception);
 
+        if (exception  instanceof ProductException)
+            return (RuntimeException) exception;
+
         //======================================
         // 50010
         //======================================

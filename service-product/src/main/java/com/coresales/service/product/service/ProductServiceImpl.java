@@ -1,5 +1,6 @@
 package com.coresales.service.product.service;
 
+import com.coresales.service.product.exception.BusinessException;
 import com.coresales.service.product.model.Product;
 import com.coresales.service.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -48,13 +49,16 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product actualizar(Long id, Product producto){
+        //Pasos con JPA:
+        /*
         Product productoBusqueda = obtenerPorId(id);
-
         if (productoBusqueda == null) return null;
-
         producto.setFechaRegistro(productoBusqueda.getFechaRegistro());
-        //Product actualizado = productoRepository.save(producto);
-        Product actualizado = productoRepository.actualizarProducto(producto);
+        Product actualizado = productoRepository.save(producto); //Llamado del método del JPA
+        */
+
+        //Paso con método propio que llama a Stored Procedure
+        Product actualizado = productoRepository.actualizarProducto(producto); //llamado a método propio
 
         return actualizado;
     }
