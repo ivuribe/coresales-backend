@@ -27,7 +27,7 @@ public class RegisteredClientConfig {
                 /* Vue callback */
                 .redirectUri("http://localhost:5173/callback")
                 .redirectUri("https://oauth.pstmn.io/v1/callback")
-                .scope("openid")
+                //.scope("openid")
                 /* PKCE */
                 .clientSettings(ClientSettings.builder()
                         .requireProofKey(true)

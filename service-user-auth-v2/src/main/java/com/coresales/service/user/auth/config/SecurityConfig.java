@@ -17,7 +17,8 @@ public class SecurityConfig {
     @Order(2)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .formLogin(form -> {});
+                .formLogin(form -> {})
+                .cors(cors -> {});
         return http.build();
     }
 
