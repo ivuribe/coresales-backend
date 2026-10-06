@@ -1,6 +1,8 @@
 package com.coresales.service.product.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,9 +12,16 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
     // PRODUCTO NO ENCONTRADO
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleProductNotFound(ProductNotFoundException ex, HttpServletRequest request){
+        log.warn("Producto no encontrado. URI: {}, mensaje: {}",
+                request.getRequestURI(),
+                ex.getMessage()
+        );
+
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
@@ -26,6 +35,11 @@ public class GlobalExceptionHandler {
     // ERROR DE NEGOCIO
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException ex, HttpServletRequest request){
+        log.warn("Error de negocio. URI: {}, mensaje: {}",
+                request.getRequestURI(),
+                ex.getMessage()
+        );
+
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -41,6 +55,11 @@ public class GlobalExceptionHandler {
     //==========================================
     @ExceptionHandler(DataAccessException.class)
     public ResponseEntity<ErrorResponse> handleDataAccessException(DataAccessException ex,HttpServletRequest request) {
+        log.error("Error de acceso a datos. URI: {}",
+                request.getRequestURI(),
+                ex
+        );
+
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
@@ -57,6 +76,11 @@ public class GlobalExceptionHandler {
     // ERROR GENERAL
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex, HttpServletRequest request){
+        log.error("Error interno. URI: {}",
+                request.getRequestURI(),
+                ex
+        );
+
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
