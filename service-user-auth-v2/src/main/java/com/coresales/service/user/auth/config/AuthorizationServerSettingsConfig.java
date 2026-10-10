@@ -9,7 +9,8 @@ public class AuthorizationServerSettingsConfig {
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
         return AuthorizationServerSettings.builder()
-                .issuer("http://localhost:8081")
+                //.issuer("http://localhost:8081")
+                .issuer("http://auth.coresales.local:8081")
                 .build();
     }
 }

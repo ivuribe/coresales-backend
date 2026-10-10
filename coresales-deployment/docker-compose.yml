@@ -1,0 +1,41 @@
+services:
+  service-user-auth:
+    build:
+      context: ../service-user-auth-v2
+      dockerfile: Dockerfile
+    container_name: coresales-user-auth
+    ports:
+      - "8081:8081"
+    networks:
+      coresales:
+        aliases:
+          - auth.coresales.local
+
+  service-product:
+    build:
+      context: ../service-product-v2
+      dockerfile: Dockerfile
+    container_name: coresales-product
+    ports:
+      - "8083:8083"
+    depends_on:
+      - service-user-auth
+    networks:
+      - coresales
+
+  api-gateway:
+    build:
+      context: ../api-gateway-v2
+      dockerfile: Dockerfile
+    container_name: coresales-api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - service-user-auth
+      - service-product
+    networks:
+      - coresales
+
+networks:
+  coresales:
+    driver: bridge
