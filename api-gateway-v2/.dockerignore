@@ -1,0 +1,70 @@
+# ==========================================
+# Maven y compilación Java
+# ==========================================
+target/
+build/
+out/
+
+# ==========================================
+# IDEs y editores
+# ==========================================
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+.factorypath
+
+# ==========================================
+# Sistema operativo
+# ==========================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# Git
+# ==========================================
+.git/
+.gitignore
+.gitattributes
+
+# ==========================================
+# Logs y archivos temporales
+# ==========================================
+*.log
+logs/
+tmp/
+temp/
+
+# ==========================================
+# Variables de entorno y secretos
+# ==========================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ==========================================
+# Archivos de prueba y cobertura
+# ==========================================
+.coverage
+htmlcov/
+jacoco.exec
+
+# ==========================================
+# Documentación y archivos auxiliares
+# ==========================================
+README*
+docs/
+*.md
+
+# ==========================================
+# Docker Compose y configuración local
+# ==========================================
+docker-compose*.yml
+docker-compose*.yaml

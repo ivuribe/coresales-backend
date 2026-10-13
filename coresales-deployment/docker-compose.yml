@@ -1,5 +1,8 @@
 services:
   service-user-auth:
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     build:
       context: ../service-user-auth-v2
       dockerfile: Dockerfile
@@ -12,6 +15,9 @@ services:
           - auth.coresales.local
 
   service-product:
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     build:
       context: ../service-product-v2
       dockerfile: Dockerfile
