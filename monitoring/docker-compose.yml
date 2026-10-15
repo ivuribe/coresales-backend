@@ -13,6 +13,8 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     restart: unless-stopped
+    networks:
+      - coresales
 
   # ==================================================
   # GRAFANA
@@ -27,7 +29,14 @@ services:
     depends_on:
       - prometheus
     restart: unless-stopped
+    networks:
+      - coresales
 
 volumes:
   prometheus-data:
   grafana-data:
+
+networks:
+  coresales:
+    external: true
+    name: coresales-network

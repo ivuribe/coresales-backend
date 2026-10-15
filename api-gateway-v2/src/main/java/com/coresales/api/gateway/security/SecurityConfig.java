@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .authorizeExchange(exchange -> exchange
                         // Endpoint público
                         .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                        .pathMatchers("/api/auth/**","/actuator/health").permitAll()
+                        .pathMatchers("/api/auth/**","/actuator/**").permitAll()
                         // El resto requiere autenticacion
                         .anyExchange().authenticated()
                 )
