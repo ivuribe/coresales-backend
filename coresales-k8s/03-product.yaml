@@ -1,0 +1,52 @@
+# coresales-k8s/03-product.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-product
+  namespace: coresales
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-product
+  template:
+    metadata:
+      labels:
+        app: service-product
+    spec:
+      containers:
+        - name: service-product
+          image: image-service-product:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8083
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:sqlserver://host.docker.internal:59890;instanceName=SQLEXPRESS2022;databaseName=CoreSales;encrypt=true;trustServerCertificate=true"
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: coresales-db
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: coresales-db
+                  key: password
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+              value: "http://auth.coresales.local:8081"
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
+              value: "http://service-user-auth:8081/oauth2/jwks"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-product
+  namespace: coresales
+spec:
+  type: ClusterIP
+  selector:
+    app: service-product
+  ports:
+    - port: 8083
+      targetPort: 8083

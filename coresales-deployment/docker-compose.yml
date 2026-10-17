@@ -1,6 +1,7 @@
 services:
   service-user-auth:
     environment:
+      SPRING_PROFILES_ACTIVE: docker
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
     image: image-service-user-auth:latest
@@ -17,6 +18,7 @@ services:
 
   service-product:
     environment:
+      SPRING_PROFILES_ACTIVE: docker
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
     image: image-service-product:latest
@@ -32,6 +34,8 @@ services:
       - coresales
 
   api-gateway:
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
     image: image-api-gateway:latest
     build:
       context: ../api-gateway-v2

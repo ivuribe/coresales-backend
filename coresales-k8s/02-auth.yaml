@@ -1,0 +1,51 @@
+# coresales-k8s/02-auth.yaml
+# coresales-k8s/02-auth.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-user-auth
+  namespace: coresales
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-user-auth
+  template:
+    metadata:
+      labels:
+        app: service-user-auth
+    spec:
+      containers:
+        - name: service-user-auth
+          image: image-service-user-auth:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:sqlserver://host.docker.internal:59890;instanceName=SQLEXPRESS2022;databaseName=CoreSales;encrypt=true;trustServerCertificate=true"
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: coresales-db
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: coresales-db
+                  key: password
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-user-auth
+  namespace: coresales
+spec:
+  type: ClusterIP
+  selector:
+    app: service-user-auth
+  ports:
+    - port: 8081
+      targetPort: 8081
